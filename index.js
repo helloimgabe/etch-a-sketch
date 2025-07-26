@@ -1,5 +1,5 @@
 //Create 16x16 grid of square divs inside the container div
-const container = document.querySelector("#container");
+const sketchScreen = document.querySelector("#sketchScreen");
 const button = document.querySelector("#create");
 
 
@@ -12,8 +12,8 @@ button.addEventListener("click", event => {
         };
         gridSize = parseInt(promptResult, 10);
     } while ((gridSize < 1) || (gridSize > 100) || (Number.isNaN(gridSize)));
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
+    while (sketchScreen.firstChild) {
+        sketchScreen.removeChild(sketchScreen.firstChild);
     }
     makeGrid(gridSize);
 });
@@ -22,7 +22,7 @@ function makeGrid(size) {
     for (i = 0; i < size; i++) {
         const row = document.createElement("div");
         row.className = "row";
-        container.appendChild(row);
+        sketchScreen.appendChild(row);
 
         for (j = 0; j < size; j++) {
             const col = document.createElement("div");
@@ -32,10 +32,9 @@ function makeGrid(size) {
     }
 }
 
+sketchScreen.addEventListener("mouseover", event => {
+    if (event.target.classList.contains("col")) {
+        event.target.style.backgroundColor = "purple";
+    }
+})
 
-// const rowEvent = document.getElementsByClassName(".row");
-// Array.from(rowEvent).forEach(row => {
-//     addEventListener("mouseover", event => {
-//         event.target.style.backgroundColor = "tomato";
-//     })
-// })
