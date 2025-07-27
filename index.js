@@ -1,12 +1,14 @@
-//Create 16x16 grid of square divs inside the container div
+//GLOBAL VARIABLES
+
 const sketchScreen = document.querySelector("#sketchScreen");
 const button = document.querySelector("#create");
 
+//EVENT LISTENERS
 
 button.addEventListener("click", event => {
     let gridSize;
     do {
-        const promptResult = (prompt("What size grid would you like to create? Be sure to enter a valid number between 1 and 100."));
+        const promptResult = (prompt("Please enter a number between 1 - 100."));
         if (promptResult === null) {
             return;
         };
@@ -17,6 +19,16 @@ button.addEventListener("click", event => {
     }
     makeGrid(gridSize);
 });
+
+sketchScreen.addEventListener("mouseover", event => {
+    const randomColor = randomColorGen();
+    if (event.target.classList.contains("col")) {
+        event.target.style.backgroundColor = randomColor;
+        event.target.style.opacity = Number(event.target.style.opacity) + 0.1; 
+    }
+})
+
+//FUNCTIONS
 
 function makeGrid(size) {
     for (i = 0; i < size; i++) {
@@ -32,9 +44,9 @@ function makeGrid(size) {
     }
 }
 
-sketchScreen.addEventListener("mouseover", event => {
-    if (event.target.classList.contains("col")) {
-        event.target.style.backgroundColor = "purple";
-    }
-})
-
+function randomColorGen() {
+    let value1 = Math.floor(Math.random() * 256);
+    let value2 = Math.floor(Math.random() * 256);
+    let value3 = Math.floor(Math.random() * 256);
+    return `rgb(${value1}, ${value2}, ${value3})`;
+}
